@@ -1,23 +1,32 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Repo Analyzer</title>
+    <!-- TailwindCSS CDN for simplicity. Consider installing locally for production use. -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome for GitHub icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <p>
-        <textarea  id="repoQuery" placeholder="Enter your Query"></textarea><br/>
-    </p>
-    <p>
-        <input type="text"  id="repoUrl" placeholder="Url"></textarea>
-    </p>
-    <br/>
-    <button id="analyzeBtn">Analyze</button>
+<body class="bg-gray-100 h-screen flex flex-col items-center justify-center">
 
-    <h2>Analysis Result:</h2>
-    <div id="result"></div>
+    <img src="./octo.png" width="300"/>
+    <div class="bg-white p-8 rounded-xl shadow-md w-1/3">
+        <h1 class="text-xl font-semibold mb-4">GitHub Repo Analyzer</h1>
+
+        <textarea id="repoQuery" placeholder="Enter your Query" class="w-full p-2 rounded-md mb-4 bg-gray-200 border-gray-300"></textarea>
+
+        <div class="relative">
+            <input type="text" id="repoUrl" placeholder="URL" class="w-full pl-10 p-2 rounded-md mb-4 bg-gray-200 border-gray-300">
+            <i class="fa-brands fa-github absolute top-2.5 left-3 text-gray-500"></i>
+        </div>
+
+        <button id="analyzeBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md mb-4">Analyze</button>
+
+        <h2 class="text-lg font-semibold mb-2">Analysis Result:</h2>
+        <div id="result" class="border border-gray-300 p-4 rounded-md"></div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>

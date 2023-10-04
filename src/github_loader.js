@@ -5,7 +5,7 @@ import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { OpenAI } from 'langchain/llms/openai'
 import { RetrievalQAChain } from 'langchain/chains'
 
-const llm = new OpenAI({ modelName: 'gpt-3.5-turbo' })
+const llm = new OpenAI({ modelName: 'gpt-4' })
 
 export async function analyzeRepo(repoUrl, query) {
   console.log(`start analyzing: "${query}" ...`)
@@ -34,11 +34,21 @@ export async function analyzeRepo(repoUrl, query) {
   const chain = RetrievalQAChain.fromLLM(llm, vectorStore.asRetriever(), { returnSourceDocuments: true });
 
   const response = await chain.call({
-    query: `Help the user with the query: ${query}. Return the result formated as HTML using <h1>, <ul>,<p> and <code>. Format the code inside the <code> block.`,
+    query: 
+    `
+    Assist with the user's query about the GitHub repository: "${query}".
+
+    Answer in HTML format using TailwindCSS:
+    - Headings: <h2 class="text-xl font-bold mb-3">
+    - Paragraphs: <p class="mb-4">
+
+    Response:
+    `,
   })
 
   console.log(`Finished 🏁`)
   return response.text
 }
 
-console.log((await analyzeRepo('https://github.com/verwec/FineTuner', 'What does the repo?')))
+// Basic Test:
+console.log((await analyzeRepo('https://github.com/verwec/Business-Knowledge', 'What does the repo?')))
