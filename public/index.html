@@ -1,0 +1,30 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repo Analyzer</title>
+</head>
+<body>
+    <input type="text" id="repoUrl" placeholder="Enter GitHub repo URL">
+    <button id="analyzeBtn">Analyze</button>
+
+    <h2>Analysis Result:</h2>
+    <div id="result"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        document.getElementById('analyzeBtn').addEventListener('click', () => {
+            const repoUrl = document.getElementById('repoUrl').value;
+            socket.emit('analyzeRepo', repoUrl);
+        });
+
+        socket.on('analysisResult', (data) => {
+            document.getElementById('result').textContent = data;
+        });
+    </script>
+</body>
+</html>
