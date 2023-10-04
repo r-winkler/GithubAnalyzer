@@ -7,7 +7,13 @@
     <title>GitHub Repo Analyzer</title>
 </head>
 <body>
-    <input type="text" id="repoUrl" placeholder="Enter GitHub repo URL">
+    <p>
+        <textarea  id="repoQuery" placeholder="Enter your Query"></textarea><br/>
+    </p>
+    <p>
+        <input type="text"  id="repoUrl" placeholder="Url"></textarea>
+    </p>
+    <br/>
     <button id="analyzeBtn">Analyze</button>
 
     <h2>Analysis Result:</h2>
@@ -19,11 +25,12 @@
 
         document.getElementById('analyzeBtn').addEventListener('click', () => {
             const repoUrl = document.getElementById('repoUrl').value;
-            socket.emit('analyzeRepo', repoUrl);
+            const repoQuery = document.getElementById('repoQuery').value;
+            socket.emit('analyzeRepo', repoUrl, repoQuery);
         });
 
         socket.on('analysisResult', (data) => {
-            document.getElementById('result').textContent = data;
+            document.getElementById('result').innerHTML = data;
         });
     </script>
 </body>

@@ -12,9 +12,9 @@ app.use(express.static('public'))
 io.on('connection', (socket) => {
   console.log('Client connected')
 
-  socket.on('analyzeRepo', async (repoQuery) => {
+  socket.on('analyzeRepo', async (repoUrl, repoQuery) => {
     try {
-      const result = await analyzeRepo(repoQuery)
+      const result = await analyzeRepo(repoUrl, repoQuery)
       socket.emit('analysisResult', result)
     } catch (error) {
       socket.emit('error', 'Error analyzing the repository.')
